@@ -91,29 +91,41 @@ RSpec.describe WikisController, type: :controller do
     end
   end
   
-   describe "PUT update" do
-      it "updates wiki with expected attributes" do
-        new_title = "New Wiki Title"
-        new_body = "New wiki body"
-        new_privacy_setting = true
+  describe "PUT update" do
+    it "updates wiki with expected attributes" do
+      new_title = "New Wiki Title"
+      new_body = "New wiki body"
+      new_privacy_setting = true
 
-        put :update, params: { id: my_wiki.id, wiki: { title: new_title, body: new_body, private: new_privacy_setting } }
+      put :update, params: { id: my_wiki.id, wiki: { title: new_title, body: new_body, private: new_privacy_setting } }
 
-        updated_wiki = assigns(:wiki)
-        expect(updated_wiki.id).to eq my_wiki.id
-        expect(updated_wiki.title).to eq new_title
-        expect(updated_wiki.body).to eq new_body
-        expect(updated_wiki.private).to eq new_privacy_setting
-      end
-
-      it "redirects to the updated wiki" do
-        new_title = "New Wiki Title"
-        new_body = "New wiki body"
-        new_privacy_setting = true
-
-        put :update, params: { id: my_wiki.id, wiki: { title: new_title, body: new_body, private: new_privacy_setting } }
-        expect(response).to redirect_to my_wiki
-      end
+      updated_wiki = assigns(:wiki)
+      expect(updated_wiki.id).to eq my_wiki.id
+      expect(updated_wiki.title).to eq new_title
+      expect(updated_wiki.body).to eq new_body
+      expect(updated_wiki.private).to eq new_privacy_setting
     end
 
+    it "redirects to the updated wiki" do
+      new_title = "New Wiki Title"
+      new_body = "New wiki body"
+      new_privacy_setting = true
+
+      put :update, params: { id: my_wiki.id, wiki: { title: new_title, body: new_body, private: new_privacy_setting } }
+      expect(response).to redirect_to my_wiki
+    end
+  end
+    
+  describe "DELETE destroy" do
+    it "deletes the wiki" do
+      delete :destroy, params: { id: my_wiki.id }
+      count = Wiki.where({id: my_wiki.id}).size
+      expect(count).to eq 0
+    end
+
+    it "redirects to wiki index" do
+      delete :destroy, params: { id: my_wiki.id }
+      expect(response).to redirect_to wikis_path
+    end
+  end
 end
