@@ -70,11 +70,50 @@ RSpec.describe WikisController, type: :controller do
     end
   end
 
-  describe "GET #edit" do
+  describe "GET edit" do
     it "returns http success" do
-      get :edit
+      get :edit, params: { id: my_wiki.id }
       expect(response).to have_http_status(:success)
     end
+
+    it "renders the #edit view" do
+      get :edit, params: { id: my_wiki.id }
+      expect(response).to render_template :edit
+    end
+
+    it "assigns wiki to be updated to @wiki" do
+      get :edit, params: { id: my_wiki.id }
+      wiki_instance = assigns(:wiki)
+
+      expect(wiki_instance.id).to eq my_wiki.id
+      expect(wiki_instance.title).to eq my_wiki.title
+      expect(wiki_instance.body).to eq my_wiki.body
+    end
   end
+  
+   describe "PUT update" do
+      it "updates wiki with expected attributes" do
+        new_title = "New Wiki Title"
+        new_body = "New wiki body"
+        new_privacy_setting = true
+
+        put :update, params: { id: my_wiki.id, wiki: { title: new_title, body: new_body, private: new_privacy_setting } }
+
+        updated_wiki = assigns(:wiki)
+        expect(updated_wiki.id).to eq my_wiki.id
+        expect(updated_wiki.title).to eq new_title
+        expect(updated_wiki.body).to eq new_body
+        expect(updated_wiki.private).to eq new_privacy_setting
+      end
+
+      it "redirects to the updated wiki" do
+        new_title = "New Wiki Title"
+        new_body = "New wiki body"
+        new_privacy_setting = true
+
+        put :update, params: { id: my_wiki.id, wiki: { title: new_title, body: new_body, private: new_privacy_setting } }
+        expect(response).to redirect_to my_wiki
+      end
+    end
 
 end
