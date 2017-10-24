@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe WikisController, type: :controller do
-  let(:standard_user) { User.create!(email: 'test@bloc.io', password: 'passsword', role: :standard) }
-  let(:premium_user) { User.create!(email: 'test2@bloc.io', password: 'passsword', role: :premium) }
-  let(:admin) { User.create!(email: 'admin@bloc.io', password: 'passsword', role: :admin) }
-  let(:standard_wiki) { Wiki.create!(title: "New Wiki Title", body: "New wiki body", private: false, user: standard_user) }
-  let(:premium_wiki) { Wiki.create!(title: "New Wiki Title", body: "New wiki body", private: true, user: premium_user) }
+  let(:standard_user) { create(:user) }
+  let(:premium_user) { create(:user, email: 'user2@bloc.io', role: :premium) }
+  let(:admin) { create(:user, email: 'admin@bloc.io', role: :admin) }
+  let(:standard_wiki) { create(:wiki, user: standard_user) }
+  let(:premium_wiki) { create(:wiki, private: true, user: premium_user) }
   
   context "standard user" do
     before do
@@ -97,7 +97,7 @@ RSpec.describe WikisController, type: :controller do
       
       it "does not allow a user to edit a wiki they did not create" do
         sign_out(standard_user)
-        other_user = User.create!(email: 'test2@bloc.io', password: 'passsword', role: :standard)
+        other_user = create(:user, email: 'test@bloc.io')
         sign_in(other_user)
         
         get :edit, params: { id: standard_wiki.id }
@@ -129,7 +129,7 @@ RSpec.describe WikisController, type: :controller do
       
        it "does not allow a user to update a wiki they did not create" do
         sign_out(standard_user)
-        other_user = User.create!(email: 'test2@bloc.io', password: 'passsword', role: :standard)
+        other_user = create(:user, email: 'test@bloc.io')
         sign_in(other_user)
         
         new_title = "New Wiki Title"
@@ -154,7 +154,7 @@ RSpec.describe WikisController, type: :controller do
       
        it "does not allow a user to delete a wiki they did not create" do
         sign_out(standard_user)
-        other_user = User.create!(email: 'test2@bloc.io', password: 'passsword', role: :standard)
+        other_user = create(:user, email: 'test@bloc.io')
         sign_in(other_user)
         
         delete :destroy, params: { id: standard_wiki.id }
@@ -253,7 +253,7 @@ RSpec.describe WikisController, type: :controller do
       
       it "does not allow a user to edit a wiki they did not create" do
         sign_out(premium_user)
-        other_user = User.create!(email: 'test3@bloc.io', password: 'passsword', role: :premium)
+        other_user = create(:user, email: 'test2@bloc.io', role: :premium)
         sign_in(other_user)
         
         get :edit, params: { id: premium_wiki.id }
@@ -287,7 +287,7 @@ RSpec.describe WikisController, type: :controller do
       
       it "does not allow a user to update a wiki they did not create" do
         sign_out(premium_user)
-        other_user = User.create!(email: 'test3@bloc.io', password: 'passsword', role: :premium)
+        other_user = create(:user, email: 'test2@bloc.io', role: :premium)
         sign_in(other_user)
         
         new_title = "New Wiki Title"
@@ -313,7 +313,7 @@ RSpec.describe WikisController, type: :controller do
       
       it "does not allow a user to delete a wiki they did not create" do
         sign_out(premium_user)
-        other_user = User.create!(email: 'test3@bloc.io', password: 'passsword', role: :premium)
+        other_user = create(:user, email: 'test2@bloc.io', role: :premium)
         sign_in(other_user)
         
         delete :destroy, params: { id: premium_wiki.id }

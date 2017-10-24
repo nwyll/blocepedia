@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :user do
-    email "test@bloc.io"
-    pasword 'password'
+    email "user@bloc.io"
+    password 'password'
+    role "standard"
   end
 end

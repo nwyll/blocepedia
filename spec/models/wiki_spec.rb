@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Wiki, type: :model do
-  let(:wiki) { Wiki.create!(title: "New Wiki Title", body: "New wiki body", private: false) }
+  let(:wiki) { create(:wiki) }
   
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_presence_of(:body) }
@@ -11,7 +11,7 @@ RSpec.describe Wiki, type: :model do
   
   describe "attributes" do
     it "has title, body and private attributes" do
-      expect(wiki).to have_attributes(title: "New Wiki Title", body: "New wiki body", private: false)
+      expect(wiki).to have_attributes(title: wiki.title, body: wiki.body, private: wiki.private)
     end
   end
 end

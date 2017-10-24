@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { User.create(email: 'test@bloc.io', password: 'passsword') }
+  let(:user) { create(:user) }
   
   it { is_expected.to have_many(:wikis) }
   
@@ -80,14 +80,6 @@ RSpec.describe User, type: :model do
       it "returns true for #admin?" do
         expect(user.admin?).to be_truthy
       end
-    end
-  end
-  
-  describe "invalid user" do
-    let(:user_with_invalid_email) { User.create(email: "", password: 'passsword') }
-    
-     it "should be an invalid user due to a blank email" do
-      expect(user_with_invalid_email).to_not be_valid
     end
   end
 end
