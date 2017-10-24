@@ -1,6 +1,7 @@
 class WikisController < ApplicationController
   def index
-    @wikis = Wiki.all
+    @public_wikis = Wiki.where(private: false)
+    @private_wikis = Wiki.where(private: true)
   end
 
   def show
@@ -25,10 +26,12 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
   
   def update
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
     @wiki.assign_attributes(wiki_params)
     
     if @wiki.save
@@ -42,6 +45,7 @@ class WikisController < ApplicationController
   
   def destroy
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
     
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."

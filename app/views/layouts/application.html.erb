@@ -12,6 +12,7 @@
       <ul class="nav nav-tabs">
         <li><%= link_to "Home", root_path %></li>
         <li><%= link_to "About", about_path %></li>
+        <li><%= link_to "Public wikis", wikis_path %></li>
         <% if user_signed_in? %>
           <div class='pull-right'>
             Signed in as: <strong><%= current_user.email %></strong> |
