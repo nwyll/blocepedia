@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :wiki do
     title "Test Title"
     body "test body sufficiently long"
