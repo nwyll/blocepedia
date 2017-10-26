@@ -20,9 +20,9 @@
     <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body" %>
   <% end %>
   <% if current_user.premium? || current_user.admin? %>
-  <div class="form-group">
-    <%= f.label :private, class: 'checkbox' do %>
-      <%= f.check_box :private %> Private wiki
+  <div class="form-check">
+    <%= f.label :private, class: 'form-check-label' do %>
+      <%= f.check_box :private, class: "form-check-input" %> Private wiki
     <% end %>
   <% end %>
   </div>

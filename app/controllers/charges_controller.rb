@@ -34,6 +34,12 @@ class ChargesController < ApplicationController
       redirect_to new_charge_path
   end
   
+  def downgrade
+    current_user.standard!
+    flash[:notice] = "Your account has been updated. You are now a standard user."
+    redirect_to(root_path)
+  end
+  
   private
   def default_amt
     15_00
