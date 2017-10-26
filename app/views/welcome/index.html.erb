@@ -1,21 +1,51 @@
 <div class="container">
-  <h2>Welcome to Blocipedia</h2>
-  <div class="jumbotron">
-    <h1>Create and share Mardown Wikis</h1>
-    <p>Sign up to get started.</p>
-    <div>
-      <%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-lg btn-primary' %>
+  <div class="page-header text-center">
+    <h1>Blocipedia: Social, Markdown Wikis</h1>
+  </div>
+  
+  <div class="row">
+    <div class="jumbotron text-center col-md-10 col-md-offset-1">
+      <h2>Create and share your own wikis</h2>
+      <h3>Sign up to get started.</h3>
+      <div>
+        <%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-lg btn-primary' %>
+      </div>
     </div>
   </div>
   
   <div class="row marketing">
-    <div class="col-md-6">
-      <h2>Free Plan</h2>
-      <p>Create as many public wikis as you want.</p>
-    </div>
-    <div class="col-md-6">
-      <h2>Premium Plan  <span class="glyphicon glyphicon-king" aria-hidden="true"></span></h2>
-      <p>Create private wikis.</p>
+    <div class="col-md-10 col-md-offset-1">
+      
+      <div class="col-md-6 text-center">
+        <h2>Free Plan</h2>
+        <div class="main-glyphs">
+          <p class="glyphicon glyphicon-file" aria-hidden="true"></p>
+        </div>
+        
+        <div class="text-left col-md-offset-2">
+          <ul>
+            <li><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>  Unlimited public wikis</li>
+            <li><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>  Collaborate with friends</li>
+            <li><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>  Create private wikis</li>
+            <li><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>  Always free</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="col-md-6 text-center">
+        <h2>Premium Plan</h2>
+        <div class="main-glyphs">
+          <p class="glyphicon glyphicon-usd" aria-hidden="true"><p>
+        </div>
+        <div class="text-left col-md-offset-2">
+          <ul>
+            <li><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>  Unlimited public wikis</li>
+            <li><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>  Collaborate with friends</li>
+            <li><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>  Create private wikis</li>
+            <li><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>  Ad free</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>

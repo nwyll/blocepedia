@@ -2,6 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.jumbotron {
-  text-align: center;
+ul {
+  list-style-type: none;
+}
+
+.main-glyphs {
+  pading: 2rem;
+  font-size: 8rem;
 }

@@ -17,6 +17,7 @@ end
 group :development do
   # Use sqlite3 as the development database for Active Record
   gem 'sqlite3'
+  gem 'listen', '~> 3.0.5'
 end
 
 group :development, :test do
@@ -32,7 +33,6 @@ gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
- 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -41,11 +41,6 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
  
 gem 'thor', '0.19.1'
- 
-group :development do
- gem 'listen', '~> 3.0.5'
-end
-
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'pundit'
