@@ -35,6 +35,16 @@ class ChargesController < ApplicationController
   end
   
   def downgrade
+    #Make all wikis for current user public
+    @user = current_user
+    user_wikis = @user.wikis
+    
+    user_wikis.each do |wiki|
+      wiki.private = false
+      wiki.save
+    end
+    
+    #Change user_role to standard
     current_user.standard!
     flash[:notice] = "Your account has been updated. You are now a standard user."
     redirect_to(root_path)

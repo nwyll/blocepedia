@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :wiki do
-    title "Test Title"
-    body "test body sufficiently long"
+    title Faker::Lorem.sentence
+    body Faker::Lorem.paragraph
     private false
     user
   end
