@@ -47,4 +47,5 @@ gem 'pundit'
 gem 'faker', '~> 1.8', '>= 1.8.4'
 gem 'stripe'
 gem 'figaro'
+gem 'redcarpet'
 
