@@ -15,19 +15,68 @@
     <%= f.label :title %>
     <%= f.text_field :title, class: 'form-control', placeholder: "Enter wiki title" %>
   <% end %>
+  
   <%= form_group_tag(wiki.errors[:body]) do %>
     <%= f.label :body %>
     <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body using markdown syntax" %>
   <% end %>
+  
   <% if current_user.premium? || current_user.admin? %>
     <div class="form-check">
       <%= f.label :private, class: 'form-check-label' do %>
         <%= f.check_box :private, class: "form-check-input" %> Private wiki
       <% end %>
     </div>
-  <% end %>
+    
+    <div>
+      <% if wiki.private %>
+        <h4>Collaborators:</h3>
+        <% if wiki.collaborating_users.size != 0 %> <!--#list the current collaborating_users for a the current wiki(if private) - "Remove" checkbox to remove collaborator-->
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Collaborator</th>
+                <th>Remove?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% wiki.collaborating_users.each do |collaborator| %>
+                <tr>
+                  <td><%= collaborator.email %></td>
+                  <td><%= check_box_tag "collaborator_ids[]", collaborator.id %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>No current collaborators. To add collaborators choose from the list below.</p>
+        <% end %>
+        
+        <p>Add Collaborators:</p>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Add?</th>
+              </tr>
+            </thead>
+            <tbody> <!--#list all users who are not current collaborating_users-->
+              <% User.all.each do |user| %>
+                <tr>
+                  <td><%= user.email %></td>
+                  <td><%= check_box_tag "user_ids[]", user.id %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+      <% else %>
+        <p>Wiki must be private to add collaborators. Check Private and save before adding collaborators.</p>
+      <% end %>
+    </div>
+  <% end %> 
+  
   <div class="form-group">
     <%= f.submit "Save", class: 'btn btn-success' %>
   </div>
-  
+
 <% end %>
