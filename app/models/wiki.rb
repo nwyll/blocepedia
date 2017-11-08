@@ -1,5 +1,7 @@
 class Wiki < ApplicationRecord
   belongs_to :user
+  has_many :collaborators, dependent: :destroy
+  
   default_scope { order("title ASC") }
   
   before_save { self.private ||= false }

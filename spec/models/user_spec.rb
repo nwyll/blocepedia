@@ -4,6 +4,7 @@ RSpec.describe User, type: :model do
   let(:user) { create(:user) }
   
   it { is_expected.to have_many(:wikis) }
+  it { is_expected.to have_many(:collaborators) }
   
   describe "attributes" do
     it "should have email attributes" do

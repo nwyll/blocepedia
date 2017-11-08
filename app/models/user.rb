@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
          
   has_many :wikis
+  has_many :collaborators, dependent: :destroy
   
   before_save { self.role ||= :standard }
   

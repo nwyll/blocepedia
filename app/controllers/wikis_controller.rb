@@ -1,7 +1,6 @@
 class WikisController < ApplicationController
   def index
-    @public_wikis = Wiki.where(private: false)
-    @private_wikis = Wiki.where(private: true)
+    @wikis = policy_scope(Wiki)
   end
 
   def show

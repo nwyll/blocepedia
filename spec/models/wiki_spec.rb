@@ -9,6 +9,8 @@ RSpec.describe Wiki, type: :model do
   it { is_expected.to validate_length_of(:title).is_at_least(5) }
   it { is_expected.to validate_length_of(:body).is_at_least(10) }
   
+  it { is_expected.to have_many(:collaborators) }
+  
   describe "attributes" do
     it "has title, body and private attributes" do
       expect(wiki).to have_attributes(title: wiki.title, body: wiki.body, private: wiki.private)
