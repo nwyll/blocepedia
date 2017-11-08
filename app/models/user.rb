@@ -6,6 +6,7 @@ class User < ApplicationRecord
          
   has_many :wikis
   has_many :collaborators, dependent: :destroy
+  has_many :collaborating_wikis, through: :collaborators, source: :wiki
   
   before_save { self.role ||= :standard }
   
