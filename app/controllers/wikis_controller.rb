@@ -26,6 +26,9 @@ class WikisController < ApplicationController
   def edit
     @wiki = Wiki.find(params[:id])
     authorize @wiki
+    
+    #list current collaborators
+    @collaborators = Wiki.find(params[:id]).collaborating_users
   end
   
   def update
@@ -58,6 +61,23 @@ class WikisController < ApplicationController
   def my_wikis
     @user = current_user
     @my_wikis = @user.wikis
+  end
+  
+  def remove_collaborators
+    @collaborators = Wiki.find(params[:id]).collaborating_users
+    #remove selected collaborators from the @collaborators from array
+    @collaborators = @collaborators - params[collaborator_ids]
+    
+    flash[:notice] = "Collaborators updated."
+    render :edit
+  end
+  
+  def add_collaborators
+    #users who are not current collaborators
+    @potential_collaborators = User.all - @collaborators
+    
+    
+    
   end
   
   private
