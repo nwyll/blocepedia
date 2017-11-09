@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
-  resources :wikis 
-  get 'my_wikis'=> 'wikis#my_wikis'
+  
+  resources :wikis do
+    collection do
+      get 'my_wikis'
+    end
+    member do
+      put 'remove_collaborators'
+      put 'add_collaborators'
+    end
+  end
   
   resources :charges, only: [:new, :create]
   post 'downgrade' => 'charges#downgrade'
