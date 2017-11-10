@@ -1,5 +1,5 @@
 <h1>My Wikis</h1>
-<div class="container text-center">
+<div class="container">
   <div class="row">
     <div class="col-md-8">
       <% if @my_wikis.size != 0 %>
@@ -8,9 +8,9 @@
             <% @my_wikis.each do |wiki| %>
               <tr>
                 <td><%= link_to wiki.title, wiki %></td>
-                <td><%= wiki.private ? 'Private' : 'Public' %></td>
-                <td><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
-                <td><%= link_to 'Delete', wiki, method: :delete, data: {confirm: 'Are you sure you want to delete this wiki?'} %></td>
+                <td class="text-center"><%= wiki.private ? 'Private' : 'Public' %></td>
+                <td class="text-center"><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
+                <td class="text-center"><%= link_to 'Delete', wiki, method: :delete, data: {confirm: 'Are you sure you want to delete this wiki?'} %></td>
               </tr>
             <% end %>
           </tbody>
@@ -22,6 +22,29 @@
     <div class="col-md-4">
       <%= link_to "New Wiki", new_wiki_path, class: 'btn btn-success' %>
     </div>
-    
   </div>
 </div>
+
+<% if @user.premium? %>
+  <h1>My Collaborating Wikis</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <% if @collaborating_wikis.present? %>
+          <table class="table table-bordered">
+            <tbody>
+              <% @collaborating_wikis.each do |wiki| %>
+                <tr>
+                  <td><%= link_to wiki.title, wiki %></td>
+                  <td class="text-center"><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <h4>You are not a collaborator on any wikis yet.</h4>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

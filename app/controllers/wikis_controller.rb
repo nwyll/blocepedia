@@ -29,6 +29,9 @@ class WikisController < ApplicationController
     
     #list current collaborators
     @collaborators = Wiki.find(params[:id]).collaborating_users
+    
+    #list users who are not current collaborators
+    @potential_collaborators = User.all - @collaborators
   end
   
   def update
@@ -61,25 +64,30 @@ class WikisController < ApplicationController
   def my_wikis
     @user = current_user
     @my_wikis = @user.wikis
+    @collaborating_wikis = @user.collaborating_wikis
   end
   
   def remove_collaborators
-    @collaborators = Wiki.find(params[:id]).collaborating_users
-    #remove selected collaborators from the @collaborators from array
-    @collaborators = @collaborators - params[collaborator_ids]
+    #remove selected collaborators from the @collaborators from params array
+    #params[:collaborator_ids]
     
     flash[:notice] = "Collaborators updated."
     render :edit
   end
   
   def add_collaborators
-    #users who are not current collaborators
-    @potential_collaborators = User.all - @collaborators
+    #add selected collaborators from params array
+    # .update_all([:user, :user_id], :id => params[:potential_collaborator_ids])
     
+    #list current collaborators
+    # @collaborators = Wiki.find().collaborating_users #how to pass in wiki_id?
+    #add selected collaborators from params array
+    # @collaborators << params[:potential_collaborator_ids]
     
-    
+    flash[:notice] = "Collaborators added."
+    render :edit
   end
-  
+
   private
   def wiki_params
     params.require(:wiki).permit(:title, :body, :private)
