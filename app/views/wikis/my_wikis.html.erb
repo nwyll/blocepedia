@@ -25,26 +25,24 @@
   </div>
 </div>
 
-<% if @user.premium? %>
-  <h1>My Collaborating Wikis</h1>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8">
-        <% if @collaborating_wikis.present? %>
-          <table class="table table-bordered">
-            <tbody>
-              <% @collaborating_wikis.each do |wiki| %>
-                <tr>
-                  <td><%= link_to wiki.title, wiki %></td>
-                  <td class="text-center"><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        <% else %>
-          <h4>You are not a collaborator on any wikis yet.</h4>
-        <% end %>
-      </div>
+<h1>My Collaborating Wikis</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <% if @collaborating_wikis.present? %>
+        <table class="table table-bordered">
+          <tbody>
+            <% @collaborating_wikis.each do |wiki| %>
+              <tr>
+                <td><%= link_to wiki.title, wiki %></td>
+                <td class="text-center"><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <h4>You are not a collaborator on any wikis yet.</h4>
+      <% end %>
     </div>
   </div>
-<% end %>
+</div>
