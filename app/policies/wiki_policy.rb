@@ -8,7 +8,7 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def user_who_can_access_wiki
-    record.user_id == user.id || user.admin? 
+    record.user_id == user.id || user.admin? || record.collaborating_users.include?(user)
   end
   
   class Scope
