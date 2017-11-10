@@ -42,7 +42,7 @@
     <% if wiki.private %>
     
       <% if wiki.collaborating_users.present? %> <!--#list the current collaborating_users for a the current wiki(if private) - "Remove" checkbox to remove collaborator-->
-        <%= form_tag remove_collaborators_wiki_path, :method => :put do %>
+        <%= form_tag remove_collaborators_wiki_path(@wiki), :method => :put do %>
           <table class="table table-bordered">
             <thead>
               <tr>
@@ -51,11 +51,10 @@
               </tr>
             </thead>
             <tbody>
-              <!--< for collaborator in @collaborators %>-->
-              <% wiki.collaborating_users.each do |collaborating_user| %>
+              <% @collaborators.each do |collaborator| %>
                 <tr>
-                  <td><%= collaborating_user.email %></td>
-                  <td><%= check_box_tag "collaborating_user_ids[]", collaborating_user.id %></td>
+                  <td><%= collaborator.email %></td>
+                  <td><%= check_box_tag "collaborator_ids[]", collaborator.id %></td>
                 </tr>
               <% end %>
             </tbody>
@@ -68,7 +67,7 @@
       
       <br>
       <p>Add Collaborators:</p>
-        <%= form_tag remove_collaborators_wiki_path, :method => :put do %>
+        <%= form_tag add_collaborators_wiki_path, :method => :put do %>
           <table class="table table-bordered">
             <thead>
               <tr>
@@ -76,16 +75,16 @@
                 <th>Add?</th>
               </tr>
             </thead>
-            <tbody> <!--#list all users who are not current collaborating_users-->
-              <% User.all.each do |user| %>
+            <tbody> 
+              <% @new_collaborators.each do |new_collaborator| %>
                 <tr>
-                  <td><%= user.email %></td>
-                  <td><%= check_box_tag "user_ids[]", user.id %></td>
+                  <td><%= new_collaborator.email %></td>
+                  <td><%= check_box_tag "new_collaborator_ids[]", new_collaborator.id %></td>
                 </tr>
               <% end %>
             </tbody>
           </table>
-          <%= submit_tag "Remove Collaborators" %>
+          <%= submit_tag "Add Collaborators" %>
         <% end %>
     
     <% else %>

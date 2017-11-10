@@ -28,10 +28,10 @@ class WikisController < ApplicationController
     authorize @wiki
     
     #list current collaborators
-    @collaborators = Wiki.find(params[:id]).collaborating_users
+    @collaborators = @wiki.collaborating_users
     
     #list users who are not current collaborators
-    @potential_collaborators = User.all - @collaborators
+    @new_collaborators = User.all - @wiki.collaborating_users
   end
   
   def update
@@ -68,24 +68,23 @@ class WikisController < ApplicationController
   end
   
   def remove_collaborators
-    #remove selected collaborators from the @collaborators from params array
-    #params[:collaborator_ids]
+    @wiki = Wiki.find(params[:id])
+    #remove selected collaborators from the @collaborators from params array - how to find the collaborator record with ths user and wiki
+    @wiki.collaborating_users = @wiki.collaborating_users - User.find(params[:collaborator_ids])
+    @wiki.save
     
-    flash[:notice] = "Collaborators updated."
-    render :edit
+    flash[:notice] = "Collaborators removed."
+    redirect_to edit_wiki_path(@wiki)
   end
   
   def add_collaborators
+    @wiki = Wiki.find(params[:id])
     #add selected collaborators from params array
-    # .update_all([:user, :user_id], :id => params[:potential_collaborator_ids])
-    
-    #list current collaborators
-    # @collaborators = Wiki.find().collaborating_users #how to pass in wiki_id?
-    #add selected collaborators from params array
-    # @collaborators << params[:potential_collaborator_ids]
+    @wiki.collaborating_users = @wiki.collaborating_users + User.find(params[:new_collaborator_ids])
+    @wiki.save
     
     flash[:notice] = "Collaborators added."
-    render :edit
+    redirect_to edit_wiki_path(@wiki)
   end
 
   private
